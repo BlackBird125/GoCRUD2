@@ -1,0 +1,89 @@
+definitions:
+  models.User:
+    properties:
+      age:
+        type: integer
+      name:
+        description: "ID\t\t int       `json:\"id\"`"
+        type: string
+    type: object
+info:
+  contact: {}
+  description: このswaggerはgin-swaggerの見本apiです
+  license:
+    name: kosuke
+  title: gin-swagger todos
+  version: "1.0"
+paths:
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      summary: User一覧を配列で返す
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: title
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: body
+        in: body
+        name: body
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: 新規Todoを作成
+      tags:
+      - Todo
+  /users/{id}:
+    delete:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Userを削除する
+      tags:
+      - User
+    get:
+      description: get string by ID
+      operationId: get-string-by-int
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Userを返す
+      tags:
+      - User
+swagger: "2.0"
