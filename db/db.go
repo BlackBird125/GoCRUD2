@@ -2,6 +2,7 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/BlackBird125/GoCRUD2/models"
@@ -37,6 +38,8 @@ func gormConnect() *gorm.DB {
 	PROTOCOL := "tcp(" + os.Getenv("DOMAIN") + ":" + os.Getenv("PORT") + ")"
 	DBNAME := os.Getenv("DBNAME") + "?parseTime=true&loc=Asia%2FTokyo"
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
+
+	log.Print(CONNECT)
 
 	db, err := gorm.Open(DBMS, CONNECT)
 
