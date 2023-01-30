@@ -36,7 +36,7 @@ func gormConnect() *gorm.DB {
 	USER := os.Getenv("DBUSER")
 	PASS := os.Getenv("PASSWORD")
 	PROTOCOL := "tcp(" + os.Getenv("DOMAIN") + ":" + os.Getenv("PORT") + ")"
-	DBNAME := os.Getenv("DBNAME") + "?parseTime=true&loc=Asia%2FTokyo"
+	DBNAME := os.Getenv("DBNAME")
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME
 
 	log.Print(CONNECT)
