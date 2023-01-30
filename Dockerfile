@@ -1,12 +1,22 @@
-FROM golang:1.19-alpine
+FROM golang:1.19.4 as builder
 
-WORKDIR /app
+WORKDIR /go/src
 
-COPY . .
+COPY go.mod go.sum ./
 RUN go mod download
 
-RUN go build -o /app
+COPY ./main.go  ./
 
-EXPOSE 8080
+ARG CGO_ENABLED=0
+ARG GOOS=linux
+ARG GOARCH=amd64
+RUN go build \
+    -o /go/bin/main \
+    -ldflags '-s -w'
 
-CMD [ "/app" ]
+
+FROM scratch as runner
+
+COPY --from=builder /go/bin/main /app/main
+
+ENTRYPOINT ["/app/main"]
