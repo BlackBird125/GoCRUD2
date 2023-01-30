@@ -1,27 +1,12 @@
-# デプロイ用コンテナに含めるバイナリを作成するコンテナ
-FROM golang:1.18.2-bullseye as deploy-builder
+FROM golang:1.16-alpine
 
 WORKDIR /app
-
-COPY go.mod go.sum ./
-RUN go mod download
 
 COPY . .
-RUN go build -trimpath -ldflags "-w -s" -o app
+RUN go mod download
 
-# ---------------------------------------------------
+RUN go build -o /app
 
-FROM debian:bullseye-slim as deploy
+EXPOSE 8080
 
-RUN apt-get update
-
-COPY --from=deploy-builder /app/app .
-
-CMD ["./app"]
-
-# ---------------------------------------------------
-
-FROM golang:1.18.2 as dev
-WORKDIR /app
-RUN go install github.com/cosmtrek/air@latest
-CMD ["air"]
+CMD [ "/app" ]
