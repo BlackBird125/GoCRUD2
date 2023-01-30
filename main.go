@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	_ "github.com/BlackBird125/GoCRUD2/docs"
 
 	"github.com/BlackBird125/GoCRUD2/db"
@@ -24,8 +22,8 @@ func main() {
 
 
 func loadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	godotenv.Load()
+	// if err != nil {
+	// 	log.Fatal("Error loading .env file")
+	// }
 }
